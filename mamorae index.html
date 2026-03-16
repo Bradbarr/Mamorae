@@ -1,0 +1,1301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Mamorae — A living record of your life, your voice, and your love. Held safely. Shared when the time is right." />
+  <title>Mamorae — Remember everything that matters</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Spectral:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #f9f4ed;
+      --warm: #f2e8d9;
+      --parchment: #e8dcc8;
+      --gold: #c49a3c;
+      --gold-light: #e8c46a;
+      --gold-pale: rgba(196,154,60,0.12);
+      --ember: #8b3a2a;
+      --ink: #1a1410;
+      --ink-mid: #2e2520;
+      --text: #3a3028;
+      --muted: #7a6e62;
+      --faint: #a89e92;
+      --line: rgba(58,48,40,0.10);
+      --line-gold: rgba(196,154,60,0.20);
+
+      --serif: "Cormorant Garamond", Georgia, ui-serif, serif;
+      --body: "DM Sans", system-ui, sans-serif;
+      --italic: "Spectral", Georgia, serif;
+
+      --max: 1100px;
+      --r: 16px;
+      --r-lg: 24px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 15px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* Subtle paper grain overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; position: relative; }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(249,244,237,0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0;
+      gap: 20px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 11px;
+    }
+    .brand-mark {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--ember) 100%);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 10px rgba(196,154,60,0.30);
+      flex-shrink: 0;
+    }
+    .brand-mark svg { width: 15px; height: 15px; fill: white; }
+    .brand-name {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.5px;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13.5px;
+      color: var(--muted);
+      font-weight: 500;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .nav-links a {
+      padding: 7px 11px;
+      border-radius: 8px;
+      transition: color .15s, background .15s;
+    }
+    .nav-links a:hover { color: var(--ink); background: rgba(58,48,40,0.05); }
+    .btn-nav {
+      padding: 9px 18px;
+      background: var(--ink);
+      color: var(--cream) !important;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 13px;
+      transition: background .15s, transform .15s !important;
+    }
+    .btn-nav:hover { background: var(--ink-mid) !important; transform: translateY(-1px); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-family: var(--body);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s;
+      border: none;
+      text-decoration: none;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-dark {
+      background: var(--ink);
+      color: var(--cream);
+      box-shadow: 0 4px 20px rgba(26,20,16,0.20);
+    }
+    .btn-dark:hover { box-shadow: 0 8px 28px rgba(26,20,16,0.30); }
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--parchment);
+    }
+    .btn-outline:hover { border-color: var(--gold); }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold) 0%, #a07828 100%);
+      color: white;
+      box-shadow: 0 4px 20px rgba(196,154,60,0.35);
+    }
+    .btn-gold:hover { box-shadow: 0 8px 32px rgba(196,154,60,0.45); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 90px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 900px 500px at 60% -10%, rgba(196,154,60,0.10), transparent 65%),
+        radial-gradient(ellipse 600px 400px at -10% 80%, rgba(139,58,42,0.08), transparent 60%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--body);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .hero-eyebrow-line {
+      width: 32px; height: 1.5px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(42px, 5vw, 68px);
+      font-weight: 600;
+      line-height: 1.04;
+      color: var(--ink);
+      margin: 0 0 20px;
+      letter-spacing: -0.5px;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-family: var(--italic);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 46ch;
+      margin: 0 0 32px;
+    }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .hero-note {
+      margin-top: 18px;
+      font-size: 12.5px;
+      color: var(--faint);
+      font-style: italic;
+      font-family: var(--italic);
+    }
+
+    /* Hero visual — memory stack */
+    .hero-visual {
+      position: relative;
+    }
+    .memory-stack {
+      position: relative;
+      height: 420px;
+    }
+    .mem-card {
+      position: absolute;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(26,20,16,0.18), 0 4px 16px rgba(26,20,16,0.10);
+    }
+    .mem-card-1 {
+      width: 270px; height: 200px;
+      top: 30px; left: 50%;
+      transform: translateX(-50%) rotate(-3deg);
+      background: linear-gradient(160deg, #d4b896 0%, #c4a07a 100%);
+      z-index: 1;
+      animation: floatA 6s ease-in-out infinite;
+    }
+    .mem-card-2 {
+      width: 230px; height: 180px;
+      bottom: 40px; right: 0;
+      background: linear-gradient(160deg, #8b3a2a 0%, #6b2a1c 100%);
+      transform: rotate(5deg);
+      z-index: 3;
+      animation: floatB 7s ease-in-out infinite 1s;
+    }
+    .mem-card-3 {
+      width: 250px; height: 190px;
+      bottom: 20px; left: 0;
+      background: linear-gradient(160deg, #2e2520 0%, #1a1410 100%);
+      transform: rotate(-4deg);
+      z-index: 2;
+      animation: floatC 8s ease-in-out infinite 0.5s;
+    }
+    .mem-card-inner {
+      position: absolute; inset: 0;
+      padding: 20px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .mem-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 6px;
+      opacity: 0.7;
+    }
+    .mem-title {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .mem-date { font-size: 11px; opacity: 0.5; margin-top: 5px; }
+    .mem-icon {
+      position: absolute; top: 18px; right: 18px;
+      width: 36px; height: 36px; border-radius: 12px;
+      background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    @keyframes floatA { 0%,100%{transform:translateX(-50%) rotate(-3deg) translateY(0)} 50%{transform:translateX(-50%) rotate(-3deg) translateY(-8px)} }
+    @keyframes floatB { 0%,100%{transform:rotate(5deg) translateY(0)} 50%{transform:rotate(5deg) translateY(-10px)} }
+    @keyframes floatC { 0%,100%{transform:rotate(-4deg) translateY(0)} 50%{transform:rotate(-4deg) translateY(-6px)} }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 72px 0; }
+    .section-eyebrow {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .section-eyebrow::before {
+      content: "";
+      width: 24px; height: 1.5px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(30px, 4vw, 46px);
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.1;
+      margin: 0 0 14px;
+      letter-spacing: -0.3px;
+    }
+    .section-lead {
+      font-family: var(--italic);
+      font-style: italic;
+      font-size: 16px;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 62ch;
+      line-height: 1.75;
+    }
+
+    /* ── WHAT WE HOLD ── */
+    .hold-bg {
+      background: var(--ink);
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+    .hold-bg::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 800px 500px at 0% 50%, rgba(196,154,60,0.08), transparent 60%),
+        radial-gradient(ellipse 500px 400px at 100% 50%, rgba(139,58,42,0.10), transparent 60%);
+      pointer-events: none;
+    }
+    .hold-bg .section-eyebrow { color: var(--gold-light); }
+    .hold-bg .section-eyebrow::before { background: var(--gold-light); }
+    .hold-bg h2 { color: var(--cream); }
+    .hold-bg .section-lead { color: rgba(249,244,237,0.65); }
+
+    .memories-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .mem-type {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r-lg);
+      padding: 22px 18px;
+      transition: transform .2s, border-color .2s, background .2s;
+    }
+    .mem-type:hover {
+      transform: translateY(-4px);
+      border-color: rgba(196,154,60,0.30);
+      background: rgba(255,255,255,0.06);
+    }
+    .mem-type-icon {
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 14px;
+      background: rgba(196,154,60,0.12);
+      border: 1px solid rgba(196,154,60,0.20);
+    }
+    .mem-type h4 {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--cream);
+      margin: 0 0 8px;
+    }
+    .mem-type p {
+      font-size: 13px;
+      color: rgba(249,244,237,0.60);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 50px;
+    }
+    .steps-list { display: grid; gap: 0; }
+    .step-item {
+      display: flex; gap: 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .step-item:first-child { padding-top: 0; }
+    .step-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .step-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--gold-pale);
+      border: 1.5px solid var(--line-gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-item h4 {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 0 0 6px;
+    }
+    .step-item p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.65; }
+
+    /* How visual — plan preview */
+    .plan-preview {
+      background: white;
+      border-radius: var(--r-lg);
+      border: 1px solid var(--line);
+      box-shadow: 0 24px 70px rgba(26,20,16,0.12), 0 4px 16px rgba(26,20,16,0.06);
+      overflow: hidden;
+    }
+    .plan-header {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 18px 22px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .plan-header-title { font-family: var(--serif); font-size: 17px; font-weight: 600; }
+    .plan-header-badge {
+      font-size: 11px; padding: 5px 10px; border-radius: 20px;
+      background: rgba(196,154,60,0.20); border: 1px solid rgba(196,154,60,0.30);
+      color: var(--gold-light);
+      font-weight: 600; letter-spacing: 0.5px;
+    }
+    .plan-body { padding: 20px; display: grid; gap: 10px; }
+    .plan-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--cream);
+      border: 1px solid var(--line);
+    }
+    .plan-row-icon {
+      width: 32px; height: 32px;
+      border-radius: 10px; border: 1px solid var(--line-gold);
+      background: var(--gold-pale);
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+      flex-shrink: 0;
+    }
+    .plan-row-body { flex: 1; }
+    .plan-row-title { font-size: 13px; font-weight: 600; color: var(--ink); }
+    .plan-row-sub { font-size: 12px; color: var(--faint); }
+    .plan-row-pill {
+      font-size: 11px; padding: 4px 9px; border-radius: 20px;
+      font-weight: 600; letter-spacing: 0.3px;
+    }
+    .pill-green { background: rgba(60,140,80,0.10); color: #3c8c50; border: 1px solid rgba(60,140,80,0.20); }
+    .pill-amber { background: rgba(196,154,60,0.12); color: #a07828; border: 1px solid rgba(196,154,60,0.25); }
+
+    /* ── NURSE-LED CARE ── */
+    .care-bg {
+      background: linear-gradient(180deg, var(--warm) 0%, var(--cream) 100%);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .care-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .care-quote {
+      padding: 28px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      position: relative;
+      box-shadow: 0 8px 30px rgba(26,20,16,0.06);
+    }
+    .care-quote::before {
+      content: "\201C";
+      position: absolute;
+      top: -10px; left: 24px;
+      font-family: var(--serif);
+      font-size: 72px;
+      line-height: 1;
+      color: var(--gold);
+      opacity: 0.4;
+    }
+    .care-quote blockquote {
+      margin: 14px 0 16px;
+      font-family: var(--italic);
+      font-style: italic;
+      font-size: 18px;
+      color: var(--ink-mid);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+    .care-quote-attr {
+      font-size: 12px;
+      color: var(--faint);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .care-badges {
+      display: grid;
+      gap: 12px;
+      margin-top: 30px;
+    }
+    .care-badge {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 16px 18px;
+      background: white;
+      border-radius: var(--r);
+      border: 1px solid var(--line);
+    }
+    .care-badge-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+    .care-badge h5 {
+      font-family: var(--serif);
+      font-size: 17px; margin: 0 0 4px;
+      color: var(--ink);
+    }
+    .care-badge p { font-size: 13px; color: var(--muted); margin: 0; }
+
+    /* ── RELEASES ── */
+    .releases-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .release-card {
+      padding: 24px;
+      border-radius: var(--r-lg);
+      border: 1.5px solid var(--line);
+      background: white;
+      box-shadow: 0 4px 20px rgba(26,20,16,0.05);
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .release-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 40px rgba(26,20,16,0.10);
+      border-color: var(--parchment);
+    }
+    .release-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .rc-amber::before { background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+    .rc-dark::before { background: linear-gradient(90deg, var(--ink), #4a3f35); }
+    .rc-ember::before { background: linear-gradient(90deg, var(--ember), #c4604a); }
+    .release-card h4 {
+      font-family: var(--serif);
+      font-size: 22px; font-weight: 600;
+      color: var(--ink); margin: 0 0 8px;
+    }
+    .release-card .tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 5px 10px; border-radius: 6px;
+      margin-bottom: 14px;
+    }
+    .tag-amber { background: var(--gold-pale); color: var(--gold); border: 1px solid rgba(196,154,60,0.25); }
+    .tag-dark { background: rgba(26,20,16,0.07); color: var(--ink); border: 1px solid rgba(26,20,16,0.12); }
+    .tag-ember { background: rgba(139,58,42,0.08); color: var(--ember); border: 1px solid rgba(139,58,42,0.18); }
+    .release-card p { font-size: 13.5px; color: var(--muted); margin: 0; line-height: 1.65; }
+
+    /* ── CARE PLAN comparison ── */
+    .compare-wrap {
+      background: var(--ink);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      margin-top: 50px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .compare-header {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .compare-col {
+      padding: 18px 24px;
+    }
+    .compare-col:first-child {
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .compare-col-title {
+      font-size: 12px; font-weight: 600; letter-spacing: 1.2px;
+      text-transform: uppercase; color: rgba(249,244,237,0.40);
+      margin-bottom: 4px;
+    }
+    .compare-col-name {
+      font-family: var(--serif);
+      font-size: 20px; color: var(--cream);
+      font-weight: 600;
+    }
+    .compare-col:last-child .compare-col-name { color: var(--gold-light); }
+    .compare-rows { display: grid; }
+    .compare-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .compare-row:last-child { border-bottom: none; }
+    .compare-cell {
+      padding: 13px 24px;
+      font-size: 13px;
+      color: rgba(249,244,237,0.65);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .compare-cell:first-child { border-right: 1px solid rgba(255,255,255,0.05); }
+    .compare-cell.has { color: rgba(249,244,237,0.85); }
+    .compare-check { font-size: 14px; flex-shrink: 0; }
+
+    /* ── PRICING ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .price-card {
+      padding: 26px;
+      border-radius: var(--r-lg);
+      border: 1.5px solid var(--line);
+      background: white;
+      box-shadow: 0 4px 16px rgba(26,20,16,0.04);
+      position: relative;
+    }
+    .price-card.featured {
+      border-color: var(--gold);
+      box-shadow: 0 8px 36px rgba(196,154,60,0.18);
+    }
+    .featured-label {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--gold);
+      color: white;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 5px 14px; border-radius: 20px;
+      white-space: nowrap;
+    }
+    .price-plan {
+      font-family: var(--serif);
+      font-size: 22px; font-weight: 600; color: var(--ink);
+      margin: 0 0 4px;
+    }
+    .price-for { font-size: 12.5px; color: var(--faint); margin: 0 0 18px; }
+    .price-amount {
+      font-family: var(--serif);
+      font-size: 42px; font-weight: 700; color: var(--ink); line-height: 1;
+      margin-bottom: 4px;
+    }
+    .price-amount sup { font-size: 20px; vertical-align: super; }
+    .price-amount span { font-size: 15px; color: var(--faint); font-weight: 400; font-family: var(--body); }
+    .price-divider {
+      height: 1px; background: var(--line);
+      margin: 18px 0;
+    }
+    .price-features { list-style: none; padding: 0; margin: 0 0 20px; display: grid; gap: 9px; }
+    .price-features li {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 13.5px; color: var(--text);
+    }
+    .pf-check {
+      color: var(--gold);
+      font-size: 15px; flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .pf-off { color: var(--faint); }
+    .pf-off .pf-check { color: var(--parchment); }
+
+    /* ── WAITLIST / CTA ── */
+    .cta-section {
+      text-align: center;
+      padding: 80px 0;
+      background: linear-gradient(180deg, var(--warm) 0%, var(--cream) 100%);
+      border-top: 1px solid var(--line);
+    }
+    .cta-inner { max-width: 560px; margin: 0 auto; }
+    .cta-inner h2 { font-size: clamp(32px, 4vw, 48px); margin-bottom: 14px; }
+    .cta-inner p {
+      font-family: var(--italic);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+    .waitlist-form {
+      display: flex; gap: 10px; max-width: 460px; margin: 0 auto;
+    }
+    .waitlist-form input {
+      flex: 1;
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: 1.5px solid var(--parchment);
+      background: white;
+      font-family: var(--body);
+      font-size: 14px;
+      color: var(--ink);
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .waitlist-form input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(196,154,60,0.10);
+    }
+    .waitlist-form input::placeholder { color: var(--faint); }
+    #wl-confirm {
+      margin-top: 14px;
+      font-family: var(--italic);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--gold);
+      min-height: 20px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(249,244,237,0.75);
+      padding: 56px 0 40px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-brand .brand-name { color: var(--cream); }
+    .footer-brand p {
+      font-size: 13px;
+      color: rgba(249,244,237,0.45);
+      margin: 12px 0 0;
+      line-height: 1.7;
+      max-width: 30ch;
+    }
+    .footer-col h5 {
+      font-family: var(--serif);
+      font-size: 17px; font-weight: 600;
+      color: var(--cream);
+      margin: 0 0 14px;
+    }
+    .footer-col a {
+      display: block;
+      padding: 5px 0;
+      font-size: 13px;
+      color: rgba(249,244,237,0.50);
+      transition: color .15s;
+    }
+    .footer-col a:hover { color: rgba(249,244,237,0.90); }
+    .footer-bottom {
+      margin-top: 48px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { font-size: 12px; color: rgba(249,244,237,0.30); margin: 0; }
+    .footer-disclaimer {
+      font-size: 11px;
+      color: rgba(249,244,237,0.25);
+      max-width: 60ch;
+      text-align: right;
+    }
+
+    /* ── REVEAL ── */
+    .r { opacity: 0; transform: translateY(16px); transition: opacity .55s ease, transform .55s ease; }
+    .r.on { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner, .how-grid, .care-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { display: none; }
+      .memories-grid { grid-template-columns: repeat(2, 1fr); }
+      .releases-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .compare-header, .compare-row { grid-template-columns: 1fr; }
+      .compare-col:first-child, .compare-cell:first-child { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links a:not(.btn-nav) { display: none; }
+      .memories-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .waitlist-form { flex-direction: column; }
+      .hero-cta { flex-direction: column; align-items: flex-start; }
+    }
+
+    ::selection { background: rgba(196,154,60,0.22); }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" aria-label="Site navigation">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <span class="brand-name">Mamorae</span>
+      </a>
+      <div class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#care">Care planning</a>
+        <a href="#releases">Releases</a>
+        <a href="#pricing">Pricing</a>
+        <a class="btn-nav" href="#start">Create your Vault</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+
+    <!-- ── HERO ── -->
+    <header class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="wrap hero-inner">
+        <div>
+          <div class="hero-eyebrow r"><div class="hero-eyebrow-line"></div> A living record of your life</div>
+          <h1 class="r" style="transition-delay:.05s">
+            Every memory.<br/>Every word.<br/><em>Held with love.</em>
+          </h1>
+          <p class="hero-sub r" style="transition-delay:.10s">
+            Mamorae is a private vault for the things that matter most — your photos, your voice, your wishes, your farewells — kept safe and shared when the time is right.
+          </p>
+          <div class="hero-cta r" style="transition-delay:.15s">
+            <a class="btn btn-dark" href="#start">Create your Vault</a>
+            <a class="btn btn-outline" href="#how">See how it works</a>
+          </div>
+          <p class="hero-note r" style="transition-delay:.20s">
+            Not a legal will. Not a funeral service. A calm, human place for everything in between.
+          </p>
+        </div>
+        <div class="hero-visual r" style="transition-delay:.08s" aria-hidden="true">
+          <div class="memory-stack">
+            <div class="mem-card mem-card-1" style="color: var(--ink)">
+              <div class="mem-card-inner">
+                <div class="mem-icon">📸</div>
+                <div class="mem-label">Photo memory</div>
+                <div class="mem-title">Holidays in Pembrokeshire, 2019</div>
+                <div class="mem-date">Added 3 months ago</div>
+              </div>
+            </div>
+            <div class="mem-card mem-card-2" style="color: var(--cream)">
+              <div class="mem-card-inner">
+                <div class="mem-icon">🎵</div>
+                <div class="mem-label">Music</div>
+                <div class="mem-title">Songs to play at my farewell</div>
+                <div class="mem-date">8 tracks saved</div>
+              </div>
+            </div>
+            <div class="mem-card mem-card-3" style="color: var(--cream)">
+              <div class="mem-card-inner">
+                <div class="mem-icon">✉️</div>
+                <div class="mem-label">Letter</div>
+                <div class="mem-title">To my daughter, for her wedding</div>
+                <div class="mem-date">Scheduled release · 2027</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── WHAT YOU CAN HOLD ── -->
+    <section class="hold-bg" id="vault">
+      <div class="wrap">
+        <div class="section-eyebrow r">What lives in your Vault</div>
+        <h2 class="r" style="transition-delay:.04s; color: var(--cream)">Everything that makes <em style="color:var(--gold-light); font-style:italic; font-family: var(--serif)">you, you.</em></h2>
+        <p class="section-lead r" style="transition-delay:.08s">
+          Your vault holds any kind of memory — written, spoken, photographed, or played. Build it slowly, over a lifetime.
+        </p>
+        <div class="memories-grid">
+          <div class="mem-type r" style="transition-delay:.04s">
+            <div class="mem-type-icon">📸</div>
+            <h4>Photos & Videos</h4>
+            <p>Upload images and video clips. Organise them into collections. Write captions your family will treasure.</p>
+          </div>
+          <div class="mem-type r" style="transition-delay:.08s">
+            <div class="mem-type-icon">🎙️</div>
+            <h4>Voice & Audio</h4>
+            <p>Record yourself speaking. A voice note, a story, a message — your voice kept safe for people who'll want to hear it.</p>
+          </div>
+          <div class="mem-type r" style="transition-delay:.12s">
+            <div class="mem-type-icon">✍️</div>
+            <h4>Letters & Stories</h4>
+            <p>Write the things you'd want said. Letters to loved ones, memories from your life, wisdom you've gathered along the way.</p>
+          </div>
+          <div class="mem-type r" style="transition-delay:.16s">
+            <div class="mem-type-icon">🎵</div>
+            <h4>Music & Playlists</h4>
+            <p>The songs that matter to you. Curate playlists — for your celebration of life, for a rainy afternoon, for someone you love.</p>
+          </div>
+          <div class="mem-type r" style="transition-delay:.20s">
+            <div class="mem-type-icon">📋</div>
+            <h4>Wishes & Preferences</h4>
+            <p>Record how you'd like things handled — gatherings, keepsakes, practical matters — so your family isn't left guessing.</p>
+          </div>
+          <div class="mem-type r" style="transition-delay:.24s">
+            <div class="mem-type-icon">🏥</div>
+            <h4>Care Preferences</h4>
+            <p>Guided by a registered nurse. Document your healthcare wishes, comfort preferences, and important values. Reviewed and kept up to date.</p>
+          </div>
+          <div class="mem-type r" style="transition-delay:.28s">
+            <div class="mem-type-icon">🌍</div>
+            <h4>Life Story</h4>
+            <p>A timeline of who you are — places lived, things learned, people loved. A living memoir, built one memory at a time.</p>
+          </div>
+          <div class="mem-type r" style="transition-delay:.32s">
+            <div class="mem-type-icon">🔒</div>
+            <h4>Private Notes</h4>
+            <p>Some things are just for you. Keep private notes — reflections, information, thoughts — locked until you choose otherwise.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HOW IT WORKS ── -->
+    <section id="how">
+      <div class="wrap">
+        <div class="section-eyebrow r">Simple by design</div>
+        <h2 class="r" style="transition-delay:.04s">Built for a lifetime,<br/>not a panic.</h2>
+        <div class="how-grid">
+          <div class="steps-list">
+            <div class="step-item r" style="transition-delay:.06s">
+              <div class="step-num">1</div>
+              <div>
+                <h4>Create your Vault</h4>
+                <p>Start with one thing — a photo, a note, a wish. Your vault is private by default and grows as slowly or quickly as you like.</p>
+              </div>
+            </div>
+            <div class="step-item r" style="transition-delay:.12s">
+              <div class="step-num">2</div>
+              <div>
+                <h4>Add over time</h4>
+                <p>There's no rush and no deadline. Add memories, update preferences, record a new voice note. Come back whenever you're ready.</p>
+              </div>
+            </div>
+            <div class="step-item r" style="transition-delay:.18s">
+              <div class="step-num">3</div>
+              <div>
+                <h4>Choose your releases</h4>
+                <p>Decide what gets shared, with whom, and when — now, on a future date, or after a trusted contact confirms it's time.</p>
+              </div>
+            </div>
+            <div class="step-item r" style="transition-delay:.24s">
+              <div class="step-num">4</div>
+              <div>
+                <h4>Share publicly or privately</h4>
+                <p>Your vault can remain completely private, be shared with specific people, or made public as a tribute — entirely your choice, entirely changeable.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="plan-preview r" style="transition-delay:.10s">
+            <div class="plan-header">
+              <div class="plan-header-title">Margaret's Vault</div>
+              <div class="plan-header-badge">Private · Active</div>
+            </div>
+            <div class="plan-body">
+              <div class="plan-row">
+                <div class="plan-row-icon">📸</div>
+                <div class="plan-row-body">
+                  <div class="plan-row-title">Family photos — 47 items</div>
+                  <div class="plan-row-sub">Shared with: Family group</div>
+                </div>
+                <div class="plan-row-pill pill-green">Shared</div>
+              </div>
+              <div class="plan-row">
+                <div class="plan-row-icon">✉️</div>
+                <div class="plan-row-body">
+                  <div class="plan-row-title">Letter to Tom</div>
+                  <div class="plan-row-sub">Release: After confirmation</div>
+                </div>
+                <div class="plan-row-pill pill-amber">Held</div>
+              </div>
+              <div class="plan-row">
+                <div class="plan-row-icon">🎵</div>
+                <div class="plan-row-body">
+                  <div class="plan-row-title">Celebration of life playlist</div>
+                  <div class="plan-row-sub">14 songs · Release: When time comes</div>
+                </div>
+                <div class="plan-row-pill pill-amber">Held</div>
+              </div>
+              <div class="plan-row">
+                <div class="plan-row-icon">🏥</div>
+                <div class="plan-row-body">
+                  <div class="plan-row-title">Care preferences — reviewed</div>
+                  <div class="plan-row-sub">Last reviewed by nurse: Jan 2026</div>
+                </div>
+                <div class="plan-row-pill pill-green">Complete</div>
+              </div>
+              <div class="plan-row">
+                <div class="plan-row-icon">🎙️</div>
+                <div class="plan-row-body">
+                  <div class="plan-row-title">Voice message — for grandchildren</div>
+                  <div class="plan-row-sub">Scheduled: Their 18th birthdays</div>
+                </div>
+                <div class="plan-row-pill pill-amber">Scheduled</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── NURSE-LED CARE PLANNING ── -->
+    <section class="care-bg" id="care">
+      <div class="wrap care-grid">
+        <div>
+          <div class="section-eyebrow r">Nurse-led care planning</div>
+          <h2 class="r" style="transition-delay:.04s">Your wishes,<br/>clearly recorded.</h2>
+          <p class="section-lead r" style="transition-delay:.08s">
+            Our registered nurses support you in creating a personal care plan that goes far beyond a standard form — capturing your values, preferences, and voice in a way healthcare teams and loved ones can actually use.
+          </p>
+          <div class="care-badges r" style="transition-delay:.12s">
+            <div class="care-badge">
+              <div class="care-badge-icon">🏥</div>
+              <div>
+                <h5>Advance Care Planning</h5>
+                <p>Document your healthcare preferences, treatment wishes, and comfort priorities — in your own words, reviewed regularly.</p>
+              </div>
+            </div>
+            <div class="care-badge">
+              <div class="care-badge-icon">🤝</div>
+              <div>
+                <h5>1:1 Nurse Sessions</h5>
+                <p>Video or in-person sessions with a Band 7 registered nurse who guides you through what matters, without rush or judgment.</p>
+              </div>
+            </div>
+            <div class="care-badge">
+              <div class="care-badge-icon">📄</div>
+              <div>
+                <h5>Shareable Care Summary</h5>
+                <p>A clear, printable summary your family and healthcare providers can access when it matters most.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="care-quote r" style="transition-delay:.06s">
+            <blockquote>
+              "Most people leave nothing — not because they don't care, but because nobody made it easy. We built Mamorae to change that."
+            </blockquote>
+            <div class="care-quote-attr">The Mamorae Care Team · Registered Nursing</div>
+          </div>
+
+          <div class="compare-wrap r" style="transition-delay:.14s">
+            <div class="compare-header">
+              <div class="compare-col">
+                <div class="compare-col-title">Standard</div>
+                <div class="compare-col-name">Paper Care Plan</div>
+              </div>
+              <div class="compare-col">
+                <div class="compare-col-title">With Mamorae</div>
+                <div class="compare-col-name">Living Digital Plan</div>
+              </div>
+            </div>
+            <div class="compare-rows">
+              <div class="compare-row">
+                <div class="compare-cell"><span class="compare-check">✗</span> Static — filled once, rarely updated</div>
+                <div class="compare-cell has"><span class="compare-check">✓</span> Living — update anytime, reviewed with nurse</div>
+              </div>
+              <div class="compare-row">
+                <div class="compare-cell"><span class="compare-check">✗</span> Words on paper, no personal context</div>
+                <div class="compare-cell has"><span class="compare-check">✓</span> Video, voice, and written — the full you</div>
+              </div>
+              <div class="compare-row">
+                <div class="compare-cell"><span class="compare-check">✗</span> Often lost or inaccessible in a crisis</div>
+                <div class="compare-cell has"><span class="compare-check">✓</span> Instantly shareable with family & care teams</div>
+              </div>
+              <div class="compare-row">
+                <div class="compare-cell"><span class="compare-check">✗</span> Contains only medical preferences</div>
+                <div class="compare-cell has"><span class="compare-check">✓</span> Memories, music, farewells — your whole story</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── RELEASES ── -->
+    <section id="releases">
+      <div class="wrap">
+        <div class="section-eyebrow r">How sharing works</div>
+        <h2 class="r" style="transition-delay:.04s">Shared when <em style="font-style:italic; font-family: var(--serif)">you</em> decide.</h2>
+        <p class="section-lead r" style="transition-delay:.08s">
+          Nothing leaves your vault without your intention. Every release is yours to set, pause, or change.
+        </p>
+        <div class="releases-grid">
+          <div class="release-card rc-amber r" style="transition-delay:.06s">
+            <div class="tag tag-amber">Now</div>
+            <h4>Share immediately</h4>
+            <p>Send memories, photos, or messages to specific people right now. Perfect for things that shouldn't wait — or for going public while you're still here to enjoy the reaction.</p>
+          </div>
+          <div class="release-card rc-dark r" style="transition-delay:.12s">
+            <div class="tag tag-dark">Scheduled</div>
+            <h4>On a future date</h4>
+            <p>A letter for a grandchild's 18th birthday. An anniversary message. A voice note for next Christmas. Scheduled releases arrive exactly when you intended.</p>
+          </div>
+          <div class="release-card rc-ember r" style="transition-delay:.18s">
+            <div class="tag tag-ember">When the time comes</div>
+            <h4>After trusted confirmation</h4>
+            <p>Appoint trusted contacts — a family member, a nurse, a close friend. They confirm when the time has come, and Mamorae releases what you prepared, gently and with care.</p>
+          </div>
+        </div>
+
+        <div class="r" style="transition-delay:.12s; margin-top: 24px; padding: 22px 24px; background: var(--gold-pale); border-radius: var(--r-lg); border: 1px solid var(--line-gold);">
+          <div style="display:flex; gap: 16px; align-items:flex-start; flex-wrap:wrap;">
+            <div style="font-size:28px; flex-shrink:0;">🌍</div>
+            <div>
+              <div style="font-family: var(--serif); font-size: 20px; font-weight:600; color:var(--ink); margin-bottom:6px;">Public memorials — on your terms</div>
+              <p style="font-size:14px; color:var(--muted); margin:0; max-width:72ch; line-height:1.7">Your vault — or a curated part of it — can be made public as a tribute page. Share it before you pass if you'd like, or release it after. A place for friends and family to remember you, exactly as you want to be remembered.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PRICING ── -->
+    <section id="pricing" style="background: var(--warm); border-top: 1px solid var(--line)">
+      <div class="wrap">
+        <div class="section-eyebrow r">Simple pricing</div>
+        <h2 class="r" style="transition-delay:.04s">Start for free.<br/>Stay as long as you need.</h2>
+        <p class="section-lead r" style="transition-delay:.08s">
+          Every tier includes the core vault. Upgrade when you're ready for more, or for nurse-led support.
+        </p>
+        <div class="pricing-grid">
+          <div class="price-card r" style="transition-delay:.06s">
+            <p class="price-plan">Keeper</p>
+            <p class="price-for">Start gently — free forever</p>
+            <div class="price-amount"><sup>£</sup>0 <span>/ month</span></div>
+            <div class="price-divider"></div>
+            <ul class="price-features">
+              <li><span class="pf-check">✓</span> Private Vault (text & notes)</li>
+              <li><span class="pf-check">✓</span> Up to 20 photos</li>
+              <li><span class="pf-check">✓</span> 1 music playlist</li>
+              <li><span class="pf-check">✓</span> 2 scheduled releases</li>
+              <li><span class="pf-check">✓</span> 1 trusted contact</li>
+              <li class="pf-off"><span class="pf-check">–</span> Nurse care planning</li>
+              <li class="pf-off"><span class="pf-check">–</span> Voice & video uploads</li>
+            </ul>
+            <a class="btn btn-outline" href="#start" style="width:100%; justify-content:center;">Start free</a>
+          </div>
+
+          <div class="price-card featured r" style="transition-delay:.12s">
+            <div class="featured-label">Most chosen</div>
+            <p class="price-plan">Hold</p>
+            <p class="price-for">Everything, held with care</p>
+            <div class="price-amount"><sup>£</sup>9 <span>/ month</span></div>
+            <div class="price-divider"></div>
+            <ul class="price-features">
+              <li><span class="pf-check">✓</span> Everything in Keeper</li>
+              <li><span class="pf-check">✓</span> Unlimited photos & video</li>
+              <li><span class="pf-check">✓</span> Voice & audio recordings</li>
+              <li><span class="pf-check">✓</span> Multiple playlists</li>
+              <li><span class="pf-check">✓</span> Unlimited releases</li>
+              <li><span class="pf-check">✓</span> Up to 5 trusted contacts</li>
+              <li><span class="pf-check">✓</span> Public memorial page</li>
+            </ul>
+            <a class="btn btn-gold" href="#start" style="width:100%; justify-content:center;">Create your Vault</a>
+          </div>
+
+          <div class="price-card r" style="transition-delay:.18s">
+            <p class="price-plan">Stewardship</p>
+            <p class="price-for">With nurse-led care planning</p>
+            <div class="price-amount"><sup>£</sup>29 <span>/ month</span></div>
+            <div class="price-divider"></div>
+            <ul class="price-features">
+              <li><span class="pf-check">✓</span> Everything in Hold</li>
+              <li><span class="pf-check">✓</span> Annual nurse-led sessions</li>
+              <li><span class="pf-check">✓</span> Advance Care Plan document</li>
+              <li><span class="pf-check">✓</span> Shareable care summary</li>
+              <li><span class="pf-check">✓</span> Priority release review</li>
+              <li><span class="pf-check">✓</span> Family guidance sessions</li>
+            </ul>
+            <a class="btn btn-dark" href="#start" style="width:100%; justify-content:center;">Begin Stewardship</a>
+          </div>
+        </div>
+        <p class="r" style="transition-delay:.10s; margin-top: 16px; font-size:12.5px; color: var(--faint); font-style:italic; font-family: var(--italic)">*Pricing shown is indicative for an MVP launch. Adjust once demand is validated. Mamorae does not provide legal or financial advice — this service is for personal care preferences, memories, and messages only.</p>
+      </div>
+    </section>
+
+    <!-- ── CTA / WAITLIST ── -->
+    <section class="cta-section" id="start">
+      <div class="wrap cta-inner">
+        <div class="section-eyebrow r" style="justify-content:center">Begin gently</div>
+        <h2 class="r" style="transition-delay:.04s">Start your Vault today.</h2>
+        <p class="r" style="transition-delay:.08s">
+          One memory is enough to begin. There's no deadline, no pressure, and no wrong way to do this.
+        </p>
+        <div class="waitlist-form r" style="transition-delay:.12s">
+          <input type="email" id="wl-email" placeholder="your@email.com" aria-label="Your email address" />
+          <button class="btn btn-gold" onclick="joinWaitlist()">Join the waitlist</button>
+        </div>
+        <p id="wl-confirm"></p>
+        <p class="r" style="transition-delay:.16s; font-size:12px; color:var(--faint); margin-top:10px;">
+          No spam. No pressure. We'll let you know when the doors open.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand">
+            <div class="brand-mark">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <span class="brand-name">Mamorae</span>
+          </div>
+          <p>A living record of your life, held safely, shared when the time is right.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Your Vault</h5>
+          <a href="#vault">What you can store</a>
+          <a href="#how">How it works</a>
+          <a href="#releases">Releases</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+        <div class="footer-col">
+          <h5>Care Planning</h5>
+          <a href="#care">Nurse-led sessions</a>
+          <a href="#care">Advance care plans</a>
+          <a href="#care">Family guidance</a>
+        </div>
+        <div class="footer-col">
+          <h5>About</h5>
+          <a href="#start">Waitlist</a>
+          <a href="mailto:hello@mamorae.com">Contact us</a>
+          <a href="#">Privacy & Security</a>
+          <a href="#">Terms of use</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span id="yr"></span> Mamorae. All rights reserved.</p>
+        <p class="footer-disclaimer">Mamorae is not a legal service and does not constitute a will, legal advance directive, or medical advice. For legally binding documents, please consult a qualified solicitor. Nurse-led sessions are for personal care preference documentation only.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Reveal on scroll
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("on"); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll(".r").forEach(el => io.observe(el));
+
+    // Footer year
+    document.getElementById("yr").textContent = new Date().getFullYear();
+
+    // Waitlist
+    function joinWaitlist() {
+      const el = document.getElementById("wl-email");
+      const msg = document.getElementById("wl-confirm");
+      if (!el.value || !el.value.includes("@")) {
+        msg.style.color = "var(--ember)";
+        msg.textContent = "Please enter a valid email address.";
+        return;
+      }
+      msg.style.color = "var(--gold)";
+      msg.textContent = "Thank you — you're on the list. We'll be in touch gently.";
+      el.value = "";
+    }
+
+    document.getElementById("wl-email").addEventListener("keydown", e => {
+      if (e.key === "Enter") joinWaitlist();
+    });
+  </script>
+
+</body>
+</html>
